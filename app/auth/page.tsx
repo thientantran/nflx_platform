@@ -5,6 +5,9 @@ import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useCallback, useState } from "react";
 
+import { FaGithub } from 'react-icons/fa';
+import { FcGoogle } from 'react-icons/fc';
+
 export default function AuthPage() {
   const [email, setEmail] = useState('');
   const [name, setName] = useState('');
@@ -40,7 +43,7 @@ export default function AuthPage() {
         name,
         password
       });
-
+      login()
     } catch (error) {
         console.log(error);
     }finally{
@@ -86,6 +89,17 @@ export default function AuthPage() {
             <button disabled={isLoading} onClick={variant==='login' ? login : register} className="bg-red-600 py-3 text-white rounded-md w-full mt-10 hover:bg-red-700 transition">
               {variant === 'login' ? 'Login' : 'Sign up'}
             </button>
+
+            <div className="flex flex-row items-center gap-4 mt-8 justify-center">
+              <div onClick={() => signIn('google', { callbackUrl: '/' })}
+                    className="w-10 h-10 bg-white rounded-full flex items-center justify-center cursor-pointer hover:opacity-80 transition">
+                <FcGoogle size={32} />
+              </div>
+              <div onClick={() => signIn('github', { callbackUrl: '/' })}
+                    className="w-10 h-10 bg-white rounded-full flex items-center justify-center cursor-pointer hover:opacity-80 transition">
+                <FaGithub size={32} />
+              </div>
+            </div>
 
             <p className="text-neutral-500 mt-12">
               {variant === 'login' ? 'First time using Netflix?' : 'Already have an account?'}
