@@ -2,7 +2,7 @@ import prismadb from '@/lib/prismadb';
 import { compare } from 'bcrypt';
 import NextAuth from 'next-auth';
 import Credentials from 'next-auth/providers/credentials';
-export default NextAuth({
+export const handler = NextAuth({
   providers: [
     Credentials({
       id: 'credentials',
@@ -35,7 +35,7 @@ export default NextAuth({
         if (!isCorrectPassword) {
           throw new Error('Incorrect password');
         }
-        console.log(user)
+        // console.log(user)
         return user;
       }
     })
@@ -51,3 +51,4 @@ export default NextAuth({
   secret: process.env.NEXTAUTH_SECRET
 });
 
+export { handler as GET, handler as POST };

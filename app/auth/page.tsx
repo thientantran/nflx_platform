@@ -18,7 +18,7 @@ export default function AuthPage() {
 
   const router = useRouter()
   const login = async () => {
-    console.log("ZO")
+    // console.log("ZO")
     try {
       await signIn('credentials', {
         email,
