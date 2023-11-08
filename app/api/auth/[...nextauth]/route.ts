@@ -35,7 +35,7 @@ export default NextAuth({
         if (!isCorrectPassword) {
           throw new Error('Incorrect password');
         }
-
+        console.log(user)
         return user;
       }
     })
@@ -50,3 +50,4 @@ export default NextAuth({
   },
   secret: process.env.NEXTAUTH_SECRET
 });
+

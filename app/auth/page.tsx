@@ -1,6 +1,8 @@
 'use client'
 import Input from "@/components/Input";
 import axios from "axios";
+import { signIn } from "next-auth/react";
+import { useRouter } from "next/navigation";
 import { useCallback, useState } from "react";
 
 export default function AuthPage() {
@@ -14,8 +16,20 @@ export default function AuthPage() {
     setVariant((currentVariant) => currentVariant === 'login' ? 'register' : 'login');
   }, []);
 
-  const login = () => {
-    console.log({email, password})
+  const router = useRouter()
+  const login = async () => {
+    console.log("ZO")
+    try {
+      await signIn('credentials', {
+        email,
+        password,
+        redirect: false,
+        callbackUrl:'/'
+      })
+      router.push("/")
+    } catch (error) {
+      console.log('ERROR: ',error)
+    }
   }
   const [isLoading, setIsLoading] = useState(false)
   const register = async () => {
