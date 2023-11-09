@@ -1,5 +1,6 @@
 // 'use client'
 
+import Navbar from "@/components/Navbar"
 import { getServerSession } from "next-auth"
 import { redirect } from "next/navigation"
 
@@ -14,7 +15,7 @@ export default async function Home() {
   }
   return (
     <div>
-        <div className="text-lg text-white">Hello {session?.user?.name} with email: {session?.user?.email}</div>
+        <Navbar/>
         {/* {
           session ? (
             <button className="h-10 w-full bg-white" onClick={() => signOut()}>Sign out</button>
