@@ -1,14 +1,18 @@
 'use client'
 import Input from "@/components/Input";
 import axios from "axios";
-import { signIn } from "next-auth/react";
-import { useRouter } from "next/navigation";
+import { signIn, useSession } from "next-auth/react";
+import { redirect, useRouter } from "next/navigation";
 import { useCallback, useState } from "react";
 
 import { FaGithub } from 'react-icons/fa';
 import { FcGoogle } from 'react-icons/fc';
 
 export default function AuthPage() {
+  const {data: session} = useSession()
+  if(session){
+    redirect("/profile")
+  }
   const [email, setEmail] = useState('');
   const [name, setName] = useState('');
   const [password, setPassword] = useState('');
@@ -29,7 +33,7 @@ export default function AuthPage() {
         redirect: false,
         callbackUrl:'/'
       })
-      router.push("/")
+      router.push("/profile")
     } catch (error) {
       console.log('ERROR: ',error)
     }
@@ -91,11 +95,11 @@ export default function AuthPage() {
             </button>
 
             <div className="flex flex-row items-center gap-4 mt-8 justify-center">
-              <div onClick={() => signIn('google', { callbackUrl: '/' })}
+              <div onClick={() => signIn('google', { callbackUrl: '/profile' })}
                     className="w-10 h-10 bg-white rounded-full flex items-center justify-center cursor-pointer hover:opacity-80 transition">
                 <FcGoogle size={32} />
               </div>
-              <div onClick={() => signIn('github', { callbackUrl: '/' })}
+              <div onClick={() => signIn('github', { callbackUrl: '/profile' })}
                     className="w-10 h-10 bg-white rounded-full flex items-center justify-center cursor-pointer hover:opacity-80 transition">
                 <FaGithub size={32} />
               </div>

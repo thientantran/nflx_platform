@@ -1,12 +1,17 @@
-'use client'
+// 'use client'
 
-import { useSession } from "next-auth/react"
+import { getServerSession } from "next-auth"
+import { redirect } from "next/navigation"
 
 // import { getServerSession } from "next-auth"
 
-export default  function Home() {
+export default async function Home() {
 
-  const {data:session} = useSession()
+  // const {data:session} = useSession()
+  const session = await getServerSession()
+  if(!session){
+    redirect("/auth")
+  }
   return (
     <div>
         <div className="text-lg text-white">Hello {session?.user?.name} with email: {session?.user?.email}</div>
