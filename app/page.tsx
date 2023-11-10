@@ -1,5 +1,6 @@
 // 'use client'
 
+import Billboard from "@/components/Billboard"
 import Navbar from "@/components/Navbar"
 import { getServerSession } from "next-auth"
 import { redirect } from "next/navigation"
@@ -16,6 +17,7 @@ export default async function Home() {
   return (
     <div>
         <Navbar/>
+        <Billboard/>
         {/* {
           session ? (
             <button className="h-10 w-full bg-white" onClick={() => signOut()}>Sign out</button>
