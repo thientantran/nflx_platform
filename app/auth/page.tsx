@@ -3,16 +3,18 @@ import Input from "@/components/Input";
 import axios from "axios";
 import { signIn, useSession } from "next-auth/react";
 import { redirect, useRouter } from "next/navigation";
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 import { FaGithub } from 'react-icons/fa';
 import { FcGoogle } from 'react-icons/fc';
 
 export default function AuthPage() {
   const {data: session} = useSession()
-  if(session){
-    redirect("/profile")
-  }
+  useEffect(()=> {
+    if(session){
+      redirect('/profile')
+    }
+  },[session])
   const [email, setEmail] = useState('');
   const [name, setName] = useState('');
   const [password, setPassword] = useState('');
