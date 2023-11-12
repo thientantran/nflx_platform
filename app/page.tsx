@@ -3,7 +3,7 @@
 import Billboard from "@/components/Billboard"
 import MovieList from "@/components/MovieList"
 import Navbar from "@/components/Navbar"
-import getMovies from "@/lib/functions"
+import getMovies, { getFavoriteMoves } from "@/lib/functions"
 import { getServerSession } from "next-auth"
 import { redirect } from "next/navigation"
 
@@ -17,13 +17,16 @@ export default async function Home() {
     redirect("/auth")
   }
   const movies = await getMovies()
-  console.log(movies)
+  const email: string = session?.user?.email || ""
+  const favoriteMovieIds = await getFavoriteMoves(email)
+  const favoriteMovies = movies?.filter((movie) => favoriteMovieIds.includes(movie.id))
   return (
     <div>
         <Navbar/>
         <Billboard/>
         <div className="pb-40">
           <MovieList title="Trending now" data={movies!}/>
+          <MovieList title="Favorite Movie" data={favoriteMovies || []}/>
         </div>
         {/* {
           session ? (

@@ -1,7 +1,6 @@
 import prismadb from "./prismadb";
 
 export default async function getMovies() {
-  console.log("ZO GET MOVIES")
   try {
 
     const movies = await prismadb.movie.findMany();
@@ -10,4 +9,14 @@ export default async function getMovies() {
   } catch (error) {
     console.log(['ERROR_GET_MOVIES'])
   }
+}
+
+export async function getFavoriteMoves(email : string){
+  const user = await prismadb.user.findUnique({
+    where:{
+      email: email || ""
+    }}
+  );
+
+  return user?.favoriteIds || []
 }
