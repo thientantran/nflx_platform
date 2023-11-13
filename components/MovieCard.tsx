@@ -1,16 +1,14 @@
-
-import { getFavoriteMoves } from '@/lib/functions'
+'use client'
 import { Movie } from '@prisma/client'
 import { ChevronDownIcon, PlayIcon } from 'lucide-react'
-import { getServerSession } from 'next-auth'
+import { useRouter } from 'next/navigation'
 import FavoriteButton from './FavoriteButton'
 interface MovieCardProps {
-  data: Movie
+  data: Movie,
+  favoriteMovies: string[]
 }
-export default async function MovieCard({data} : MovieCardProps) {
-  const session = await getServerSession()
-  const email: string = session?.user?.email || ""
-  const favoriteMovies = await getFavoriteMoves(email)
+export default function MovieCard({data, favoriteMovies} : MovieCardProps) {
+  const router = useRouter()
   return (
     <div className="group bg-zinc-900 col-span relative h-[12vw]">
     <img src={data.thumbnailUrl} alt="Movie" draggable={false} className="
@@ -66,7 +64,7 @@ export default async function MovieCard({data} : MovieCardProps) {
         ">
         <div className="flex flex-row items-center gap-3">
           <div className="cursor-pointer w-6 h-6 lg:w-10 lg:h-10 bg-white rounded-full flex justify-center items-center transition hover:bg-neutral-300">
-            <PlayIcon className="text-black w-4 lg:w-6" />
+            <PlayIcon onClick={() => router.push(`/watch/${data.id}`)} className="text-black w-4 lg:w-6" />
           </div>
           <FavoriteButton movieId={data.id} favoriteMovies={favoriteMovies}/>
           <div className="cursor-pointer ml-auto group/item w-6 h-6 lg:w-10 lg:h-10 border-white border-2 rounded-full flex justify-center items-center transition hover:border-neutral-300">

@@ -1,6 +1,7 @@
 
 import axios from "axios"
 import { InfoIcon } from "lucide-react"
+import PlayButton from "./PlayButton"
 
 export default async  function Billboard() {
   //gọi ở use client
@@ -42,6 +43,7 @@ export default async  function Billboard() {
           {data.data?.description}
         </p>
         <div className="flex flex-row items-center mt-3 md:mt-4 gap-3">
+        <PlayButton movieId={data.data?.id} />
           <button className="bg-white text-white bg-opacity-30 rounded-xl py-1 md:py-2 px-2 md:px-4 w-auto text-xs lg:text-lg font-semibold flex flex-row items-center hover:bg-opacity-20 transition">
             <InfoIcon className="mr-1 w-4 md:w-7"/>
             More Info
