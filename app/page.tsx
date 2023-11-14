@@ -1,6 +1,7 @@
 // 'use client'
 
 import Billboard from "@/components/Billboard"
+import InfoModelUseClient from "@/components/InfoModelUseClient"
 import MovieList from "@/components/MovieList"
 import Navbar from "@/components/Navbar"
 import getMovies, { getFavoriteMoves } from "@/lib/functions"
@@ -22,6 +23,7 @@ export default async function Home() {
   const favoriteMovies = movies?.filter((movie) => favoriteMovieIds.includes(movie.id))
   return (
     <div>
+        <InfoModelUseClient/>
         <Navbar/>
         <Billboard/>
         <div className="pb-40">
